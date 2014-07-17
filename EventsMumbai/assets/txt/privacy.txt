@@ -1,0 +1,40 @@
+<html>
+<body>
+<h2>SECURITY</h2>
+<p>Events Mumbai is very concerned with safeguarding your information. 
+Therefore, we employ reasonable measures designed to protect your information from unauthorized access.</p>
+
+<h2>INFORMATION WE COLLECT</h2>
+<p>In order to provide our services, we collect the following types of information:</p>
+
+<p>We collect information when you fill out a form. When filling the form you may be asked to enter your email address.</p>
+<p>We collect information when the application crashes. The services automatically collect certain information that does not personally identify 
+End Users who access or use mobile applications that use the services.
+This information includes, but is not limited to, device state information, unique device identifiers, device hardware and OS information, 
+information relating to how an application functions, and the physical location of a device at the time of a crash.</p>
+
+<p>Any of the information we collect from you may be used in one of the following ways:</p>
+<ol>
+	<li>To personalize your experience. Your information helps us to better respond to your individual needs.</li>
+	<li>To improve our app. We continually strive to improve our app offerings based on the information and feedback we receive from you.</li>
+	<li> To improve customer service. Your information helps us to more effectively respond to your customer service requests and support needs.</li>
+</ol>
+
+<h2>USER COMMUNICATION</h2>
+<p>We may send you a welcoming email and will also communicate with you in response to your inquiries, to inform you about our services, to manage your 
+account and for notifications and service- related announcements when it is necessary to do so. 
+For instance, if our service is temporarily suspended for maintenance, we might send you an email. 
+Generally, you may not opt-out of these communications. 
+If you send us email or other communications, we may retain the content of your communications together with your email address and our responses.
+We may also send push notifications to the user.</p>
+
+<h2>HOW DO WE USE THE INFORMATION</h2>
+<p>We do not sell, trade, or otherwise transfer to outside parties your personally identifiable information. 
+This does not include trusted third parties who assist us in operating our app, conducting our business, or servicing you, so long as those parties agree to keep this information confidential. 
+We may also release your information when we believe release is appropriate to comply with the law, enforce our site policies, or protect ours or others' rights, property, or safety. 
+However, non-personally identifiable visitor information may be provided to other parties for marketing, advertising, or other uses.</p>
+
+<h2>CONTACTING US</h2>
+<p>If you have any questions about this Privacy Policy, please contact us through the contacts using the option provided in the app.</p>
+</body>
+</html>

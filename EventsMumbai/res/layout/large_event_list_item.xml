@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="160dp" >
+    
+    <!-- Background Image -->
+	<ImageView android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	   	android:id="@+id/eventImage"
+	    android:scaleType="center" 
+	    android:src="@drawable/event"/>
+    
+	<!-- Date and Time On The Top Right -->
+	<LinearLayout
+	    android:orientation="horizontal"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:background="@android:color/transparent"
+	    android:layout_gravity="top|right">
+	    
+	    <TextView android:id="@+id/eventDate"
+	        android:textColor="@android:color/white"
+	        android:layout_width="wrap_content"
+	        android:typeface="monospace"
+	        android:singleLine="true"
+	        android:layout_marginLeft="5dp"
+	        android:textStyle="bold"
+	        android:layout_height="wrap_content"
+	        android:text="@android:string/untitled"
+	        android:textSize="@dimen/list_item_textSize_small"/>
+    
+	    <TextView android:id="@+id/eventTime"
+	        android:gravity="center_horizontal"
+	        android:textColor="@android:color/white"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textStyle="bold"
+	        android:typeface="monospace"
+	        android:textSize="@dimen/list_item_textSize_small"
+	        android:text="@android:string/untitled"
+	        android:layout_marginLeft="5dp" />
+	</LinearLayout>
+    
+	<!-- Event Title and One Line Description At The Bottom -->
+	<LinearLayout
+	    android:orientation="vertical"
+	    android:layout_width="match_parent"
+	    android:layout_height="50dp"
+	    android:layout_gravity="center_horizontal|bottom"
+	    android:background="#99000000">
+	    
+	    <TextView android:id="@+id/eventTitle"
+	        android:textColor="@color/psts_indicator_color"
+	        android:layout_weight="1"
+	        android:layout_width="wrap_content"
+	        android:typeface="monospace"
+	        android:singleLine="true"
+	        android:textStyle="bold"
+	        android:layout_height="0dp"
+	        android:text="@android:string/untitled"
+	        android:textSize="@dimen/list_item_textSize_small"/>
+    
+	    <TextView android:id="@+id/eventDescription"
+	        android:gravity="center_horizontal"
+	        android:layout_weight="1"
+	        android:singleLine="true"
+	        android:ellipsize="end"
+	        android:textColor="@android:color/white"
+	        android:layout_width="wrap_content"
+	        android:layout_height="0dp"
+	        android:textStyle="bold"
+	        android:typeface="monospace"
+	        android:textSize="@dimen/list_item_textSize_small"
+	        android:text="@android:string/untitled"/>
+	    
+	</LinearLayout>
+</FrameLayout>

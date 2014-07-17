@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="psts_indicator_color">#FF5E3A</color>
+    <color name="psts_underline_color">#FF5E3A</color>
+    <color name="psts_dividor_color">#6F6F6F</color>
+    <color name="psts_tab_background">#3B3B3B</color>
+    <color name="navigation_drawer_background">#E5E5E5</color>
+    <color name="translucent_white_background">#99E5E5E5</color>
+    <color name="attend_green">#13BC5A</color>
+    <color name="not_attend_red">#D00909</color>
+    
+    <color name="event_highlight_blue">#33B5E5</color>
+    <color name="event_highlight_green">#8FCC85</color>
+    
+</resources>

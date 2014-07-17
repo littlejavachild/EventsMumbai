@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item android:id="@+id/socialShare" android:icon="@drawable/ic_action_share"
+        android:title="@string/share" android:showAsAction="always" />
+    
+    <item android:id="@+id/setAReminder" android:icon="@drawable/ic_action_event"
+        android:title="@string/reminder" android:showAsAction="always" />
+</menu>

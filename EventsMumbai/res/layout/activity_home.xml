@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <!-- The main content view -->
+    <LinearLayout
+        android:id="@+id/content_frame"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <com.astuetz.PagerSlidingTabStrip
+	        android:id="@+id/tabs"
+	        android:layout_width="match_parent"
+	        android:layout_height="62dp"
+	        android:background="@drawable/psts_tab_statedrawable"
+	        android:textSize="14sp"
+	        android:textStyle="bold"
+	        app:pstsDividerColor="@color/psts_dividor_color"
+	        app:pstsIndicatorColor="@color/psts_indicator_color"
+	        app:pstsTabPaddingLeftRight="14dip"
+	        app:pstsUnderlineColor="@color/psts_indicator_color" 
+	        app:pstsShouldExpand="true"
+	        app:pstsIndicatorHeight="5dp"
+	        app:pstsTextAllCaps="true"
+	        android:textColor="@android:color/white"/>
+        
+        <android.support.v4.view.ViewPager
+        	android:id="@+id/pager"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content" />
+        
+    </LinearLayout>
+    
+    <!-- The navigation drawer -->
+    <ListView android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:listSelector="@drawable/navdrawver_list_item_statedrawable"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:background="@color/navigation_drawer_background" />
+    
+</android.support.v4.widget.DrawerLayout>

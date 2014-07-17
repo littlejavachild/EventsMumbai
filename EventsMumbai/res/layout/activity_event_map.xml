@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="0dp"
+    android:orientation="vertical"
+    android:layout_margin="0dp">
+    
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_weight="4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+    
+    <RelativeLayout android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:background="@android:color/white"
+        android:padding="@dimen/list_item_padding"
+        android:layout_margin="0dp">
+        
+        <TextView android:id="@+id/eventTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/psts_indicator_color"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="5"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="@android:string/unknownName"/>
+        
+        <TextView android:id="@+id/eventLocation"
+            android:layout_below="@id/eventTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="@android:string/unknownName" />
+        
+        <TextView android:id="@+id/dateLabel"
+            android:layout_below="@id/eventLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/psts_indicator_color" 
+            android:text="@string/date" />
+        
+        <TextView android:id="@+id/eventDate"
+            android:layout_below="@id/eventLocation"
+            android:layout_toRightOf="@id/dateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:text="@android:string/unknownName"/>
+        
+        <TextView android:id="@+id/eventTime"
+            android:layout_below="@id/eventLocation"
+            android:layout_toRightOf="@id/eventDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:text="@android:string/unknownName"/>
+        
+         <TextView android:id="@+id/descriptionLabel"
+            android:layout_below="@id/dateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/psts_indicator_color" 
+            android:text="@string/description" />
+         
+         <ScrollView android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_below="@id/descriptionLabel"
+             android:layout_alignParentLeft="true"
+             android:layout_alignParentBottom="true">
+             
+             <TextView android:id="@+id/eventDescription"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textSize="15sp"
+	            android:textStyle="bold"
+	            android:textColor="@android:color/black" 
+	            android:text="@android:string/unknownName" />
+             
+         </ScrollView>
+    </RelativeLayout>
+    
+    <Button android:layout_gravity="center_horizontal"
+        android:id="@+id/attend"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="5sp"
+        android:padding="@dimen/list_item_padding"
+        android:layout_height="0dp"
+        android:minWidth="80dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:text="@string/attend"
+        android:background="@color/attend_green"
+        android:textColor="@android:color/white" />
+   
+</LinearLayout>

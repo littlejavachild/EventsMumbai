@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="hoursLeft">
+        <item quantity="one">You Can Message Again in %d Hour</item>
+        <item quantity="other">You Can Message Again in %d Hours</item>
+    </plurals>
+</resources>

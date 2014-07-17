@@ -1,0 +1,26 @@
+<html>
+<body>
+<h3>WHO WE ARE</h3>
+<p>Creative and resourceful, Student Ambassadors lead campaigns and projects at their colleges and in their communities to encourage others 
+to contribute to Mozilla (and utilize our products). 
+Together, Firefox Student Ambassadors play a large role in helping to improve the global experience of people on the Web.
+</p>
+
+<h3>BENEFITS OF JOINING</h3>
+<ul>
+	<li> Obtain leadership roles on your campus </li>
+	<li> Help grow our community (and spread our mission) around the world </li>
+	<li> Receive a bunch of cool rewards and recognition opportunities </li>
+	<li> Help promote the open web and gain marketing experience </li>
+	<li> Potential for a Mozilla internship </li>
+	<li> Access to a network of Firefox Student Ambassadors all over the world </li>
+</ul>
+<h3>WHAT WE DO</h3>
+<ul>
+	<li>Promote Firefox for Desktop and Android </li>
+	<li>Support the successful launch of Firefox OS in communities (and campuses!) around the world </li>
+	<li>Educate others about Mozilla&#x27;s mission </li>
+	<li>Grow the Mozilla Community </li>
+</ul>
+</body>
+</html>

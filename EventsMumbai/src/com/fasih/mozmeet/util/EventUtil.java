@@ -1,0 +1,190 @@
+package com.fasih.mozmeet.util;
+
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import android.util.Log;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.SaveCallback;
+
+public class EventUtil {
+	
+	private static List<ParseObject> mozillaEvents;
+	private static List<ParseObject> userEvents;
+	private static List<ParseObject> eventsOnADate;
+	private static ParseObject userEventsInDb = null;
+	private static SaveCallback callback = null;
+	private static EventComparator comparator = null;
+	/**
+	 * Used to initialize the EventUtil.
+	 * This ensures that we never get NPE
+	 * when setting adapters
+	 */
+	public static void initialize(){
+		mozillaEvents = new ArrayList<ParseObject>();
+		eventsOnADate = new ArrayList<ParseObject>();
+		
+		userEventsInDb = new ParseObject(Fields.SAVED_EVENTS);
+		userEvents = new ArrayList<ParseObject>();
+		userEventsInDb.put(Fields.EVENTS_ATTENDING_LIST,userEvents);
+		
+		comparator = new EventComparator();
+		
+		callback = new SaveCallback(){
+			@Override
+			public void done(ParseException e) {
+				if( e != null ){
+					Log.v("localdatastore", e.getMessage() + " ");
+				}
+			}
+		};
+	}
+	//------------------------------------------------------------------------------
+	/**
+	 * Used to fetch user events from the database
+	 */
+	public static void getUserEventsFromDatabase(){
+		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(Fields.SAVED_EVENTS);
+		query.fromLocalDatastore();
+		query.findInBackground(new FindCallback<ParseObject>(){
+			@Override
+			public void done(List<ParseObject> saved, ParseException e) {
+				if(e == null){
+					if(saved.size() > 0){
+						try {
+							userEventsInDb = saved.get(0);
+							userEvents = (List<ParseObject>) userEventsInDb.fetchIfNeeded().get(Fields.EVENTS_ATTENDING_LIST);
+							Log.v("user_events", Integer.valueOf(userEvents.size()).toString());
+						} catch (ParseException e1) {
+							e1.printStackTrace();
+						}
+						Collections.sort(userEvents, comparator);
+					}
+				}
+			}
+		});
+	}
+	//------------------------------------------------------------------------------
+	/**
+	 * Used to add a new event that the user is looking forward to
+	 * @param event
+	 */
+	public static void addEvent(ParseObject event){
+		// add the event
+		userEvents.add(event);
+		// save it to the database
+		userEventsInDb.pinInBackground(callback);
+	}
+	//------------------------------------------------------------------------------
+	/**
+	 * Used to remove an event that the user was previously looking forward to
+	 * @param event
+	 */
+	public static void removeEvent(ParseObject event){
+		// remove the event
+		userEvents.remove(event);
+		// save it to the database
+		userEventsInDb.pinInBackground(callback);
+	}
+	//------------------------------------------------------------------------------
+	/**
+	 * Used to know whether the user is interested in a given event
+	 * @param event
+	 * @return
+	 */
+	public static boolean containsEvent(ParseObject event){
+		return userEvents.contains(event);
+	}
+	
+	//------------------------------------------------------------------------------
+	/**
+	 * Used to update the list of upcoming Mozilla events
+	 * @param retrievedMozillaEvents
+	 * 		List of events loaded from the Internet or from local data store.
+	 * 		The data has already been saved to local data store so there is no 
+	 * 		need to save it again
+	 */
+	public static void setMozillaEvents(List<ParseObject> retrievedMozillaEvents){
+		
+		if(mozillaEvents.size() == 0){
+			mozillaEvents.addAll(retrievedMozillaEvents);
+			Collections.sort(mozillaEvents, comparator);
+			return;
+		}
+		
+		HashMap<String,String> oldKeys = new HashMap<String, String>();
+		// find all the old keys
+		for(ParseObject event : mozillaEvents){
+			oldKeys.put(event.getString(Fields.OBJECT_ID), "exists");
+		}
+		
+		for(int i = 0; i < retrievedMozillaEvents.size(); i++){
+			ParseObject event = retrievedMozillaEvents.get(i);
+			String newKey = event.getString(Fields.OBJECT_ID);
+			// Let's see if the new Key returns something from our hashmap
+			String data = (String) oldKeys.get(newKey);
+			// A new key will not return any data
+			if(data == null){
+				mozillaEvents.add(event);
+			}
+		}
+		Collections.sort(mozillaEvents, comparator);
+	}
+	//------------------------------------------------------------------------------
+	/**
+	 * Returns a list containing all the events the user is interested in
+	 * @return list  of events user is interested in
+	 */
+	public static List<ParseObject> getUserEvents(){
+		return userEvents;
+	}
+	//------------------------------------------------------------------------------
+	/**
+	 * Used to get all the Mozilla events on a given day
+	 * @return
+	 */
+	public static List<ParseObject> getMozillaEvents(){
+		return mozillaEvents;
+	}
+	//------------------------------------------------------------------------------
+	/**
+	 * Used to get a list of all the events that fall on a particular day
+	 * Call it ONLY after calling findEventsOnADate()
+	 * @return
+	 */
+	public static List<ParseObject> getAllEventsOnADate(){
+		return eventsOnADate;
+	}
+	//------------------------------------------------------------------------------
+	/**
+	 * Used to get all the events that fall on a given day
+	 */
+	public static void findEventsOnADate(Date date){
+		// Clear the list first
+		eventsOnADate.clear();
+		
+		// We are just comparing the dates so we need a formatter for it
+		DateFormat dateInstance = DateFormat.getDateInstance(DateFormat.MEDIUM);
+		
+		// For every upcoming event
+		for(ParseObject event : mozillaEvents){
+			// We get the MEDIUM representation of both the dates
+			String eventDate = dateInstance.format(event.getDate(Fields.EVENT_DATE));
+			String comparingDate = dateInstance.format(date);
+			
+			// If both of them are equal, we add it to the eventsOnDate list
+			if(eventDate.equalsIgnoreCase(comparingDate)){
+				eventsOnADate.add(event);
+			}
+		}
+	}
+	//------------------------------------------------------------------------------
+}
