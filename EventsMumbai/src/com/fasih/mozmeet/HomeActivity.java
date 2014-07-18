@@ -9,9 +9,12 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -31,6 +34,7 @@ import com.fasih.mozmeet.util.EventClickListener;
 import com.fasih.mozmeet.util.EventUtil;
 import com.fasih.mozmeet.util.Fields;
 import com.fasih.mozmeet.util.Page;
+import com.fasih.mozmeet.util.PrefUtil;
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -54,6 +58,8 @@ public class HomeActivity extends FragmentActivity implements EventClickListener
 	private MozillaEventsFragment eventsFragment = null;
 	private MyEventsFragment myEventsFragment = null;
 	
+	private DrawerLayout drawerLayout = null;
+	
 	private int lastScrolledPage = -1;
 	//------------------------------------------------------------------------------
 	@Override
@@ -70,6 +76,8 @@ public class HomeActivity extends FragmentActivity implements EventClickListener
 		leftDrawer = (ListView) findViewById(R.id.left_drawer);
 		pager = (ViewPager) findViewById(R.id.pager);
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		
 		leftDrawer.setAdapter(new NavigationListAdapter());
 		
 		if(savedInstanceState == null){
@@ -98,6 +106,12 @@ public class HomeActivity extends FragmentActivity implements EventClickListener
         pagerAdapter.setCalendarFragment(CaldroidFragment.newInstance("", month, year));
         pager.setAdapter(pagerAdapter);
         tabs.setViewPager(pager);
+        
+        // if it is the first time the user is opening the app,
+        // we need to show them the navdrawer
+        if(PrefUtil.isFirstOpen(getApplicationContext())){
+        	drawerLayout.openDrawer(Gravity.LEFT);
+        }
         
         loadMozillaEvents();
         setPageChangeListener();
@@ -259,18 +273,24 @@ public class HomeActivity extends FragmentActivity implements EventClickListener
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				if(position == 1){
+					drawerLayout.closeDrawer(Gravity.LEFT);
 					pager.setCurrentItem(Page.UPCOMING_EVENT);
 				}else if(position == 2){
+					drawerLayout.closeDrawer(Gravity.LEFT);
 					pager.setCurrentItem(Page.MY_CALENDAR);
 				}else if(position == 3){
+					drawerLayout.closeDrawer(Gravity.LEFT);
 					pager.setCurrentItem(Page.MY_EVENTS);
 				}else if(position == 4){
+					drawerLayout.closeDrawer(Gravity.LEFT);
 					Intent privacyPolicy = new Intent(HomeActivity.this,PrivacyPolicyActivity.class);
 					startActivity(privacyPolicy);
 				}else if(position == 5){
+					drawerLayout.closeDrawer(Gravity.LEFT);
 					Intent contactMe = new Intent(HomeActivity.this,ContactMeActivity.class);
 					startActivity(contactMe);
 				}else if(position == 6){
+					drawerLayout.closeDrawer(Gravity.LEFT);
 					final String packageName = getPackageName();
 					Uri market = Uri.parse("market://details?id=" + packageName);
 					try{

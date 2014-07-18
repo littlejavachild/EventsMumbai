@@ -11,6 +11,18 @@ public class PrefUtil {
 	private static final String PREFS_FILE = "prefs";
 	private static final String LAST_MEASSAGE_DATE = "lastMessageDate";
 	private static final String INSTALLATION_SAVED = "installation_saved";
+	private static final String FIRST_OPEN = "first_open";
+	//------------------------------------------------------------------------------
+	public static boolean isFirstOpen(Context context){
+		SharedPreferences prefs = context.getSharedPreferences(PREFS_FILE, 0);
+		boolean firstOpen = prefs.getBoolean(FIRST_OPEN, true);
+		if(firstOpen){
+			SharedPreferences.Editor editor = prefs.edit();
+			editor.putBoolean(FIRST_OPEN, false);
+			editor.commit();
+		}
+		return firstOpen;
+	}
 	//------------------------------------------------------------------------------
 	public static boolean isMessageAllowed(Date now, Context context){
 		SharedPreferences prefs = context.getSharedPreferences(PREFS_FILE, 0);
