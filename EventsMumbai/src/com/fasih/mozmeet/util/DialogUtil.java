@@ -16,7 +16,7 @@ public class DialogUtil {
 	 */
 	public static void showLoadingDialog(FragmentManager fm){
 		pleaseWaitDialog.setCancelable(false);
-		if( !pleaseWaitDialog.isVisible() ){
+		if( !pleaseWaitDialog.isVisible() && MozMeetApplication.newInstance().getHomeActivityVisible()){
 			pleaseWaitDialog.show(fm,"");
 		}
 	}

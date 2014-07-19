@@ -59,8 +59,6 @@ public class HomeActivity extends FragmentActivity implements EventClickListener
 	private MyEventsFragment myEventsFragment = null;
 	
 	private DrawerLayout drawerLayout = null;
-	
-	private int lastScrolledPage = -1;
 	//------------------------------------------------------------------------------
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -125,9 +123,10 @@ public class HomeActivity extends FragmentActivity implements EventClickListener
 	}
 	//------------------------------------------------------------------------------
 	@Override
-	public void onStop(){
-		super.onStop();
+	public void onSaveInstanceState(Bundle outState){
 		MozMeetApplication.newInstance().setHomeActivityVisible(false);
+		outState.putInt(PAGE_NUM_KEY, currentPageNumber);
+		super.onSaveInstanceState(outState);
 	}
 	//------------------------------------------------------------------------------
 	/**
@@ -253,7 +252,6 @@ public class HomeActivity extends FragmentActivity implements EventClickListener
 
 			@Override
 			public void onPageSelected(int position) {
-				lastScrolledPage = position;
 				if(position == Page.UPCOMING_EVENT){
 					eventsFragment.setAdapter(mozillaEventsAdapter);
 					mozillaEventsAdapter.notifyDataSetChanged();
