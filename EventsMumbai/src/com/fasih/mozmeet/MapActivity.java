@@ -115,11 +115,11 @@ public class MapActivity extends Activity {
 			displayGoogleMap();
 		}
 		addButtonListener();
-		setButtonColor();
 	}
 	//------------------------------------------------------------------------------
 	@Override
 	public void onResume(){
+		setButtonColor();
 		super.onResume();
 		DateFormat fmt = DateFormat.getDateInstance(DateFormat.MEDIUM);
 		eventTitle.setText(title);
@@ -206,6 +206,7 @@ public class MapActivity extends Activity {
 					if(EventUtil.eventBeforeToday(event)){
 						// We launch the FeedbackActivity
 						Intent feedbackActivity = new Intent(MapActivity.this,FeedbackActivity.class);
+						feedbackActivity.putExtra(Fields.PARSE_OBJECT, position);
 						startActivity(feedbackActivity);
 						// and return
 						return;
@@ -230,14 +231,21 @@ public class MapActivity extends Activity {
 		int position = intent.getIntExtra(Fields.PARSE_OBJECT, -1);
 		if(position != -1){
 			ParseObject event = EventUtil.getMozillaEvents().get(position);
-			// TODO show feedback button if event is before today
+			// If event is before today we show the feedback button
 			if(EventUtil.eventBeforeToday(event)){
-				// Set the color to grey
-				attend.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
-				// Set the text to "Feedback Form"
-				attend.setText(getResources().getString(R.string.feedback_form));
-				// and then we return
-				return;
+				// However, if feedback has already been provided,
+				// we do not show any button at all
+				if(EventUtil.containsFeedback(event)){
+					attend.setVisibility(View.INVISIBLE);
+					return;
+				}else{
+					// Set the color to grey
+					attend.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+					// Set the text to "Feedback Form"
+					attend.setText(getResources().getString(R.string.feedback_form));
+					// and then we return
+					return;
+				}
 			}
 			
 			boolean contains = EventUtil.containsEvent(event);

@@ -14,10 +14,17 @@ public interface Fields {
 	
 	// Fields used to store settings
 	String EVENTS_ATTENDING_LIST = "events_attending_list"; // the list in ParseObject
-	String SAVED_EVENTS = "saved_events_data"; // thh class name
+	String SAVED_EVENTS_CLASS_NAME = "saved_events_data"; // thh class name
 	
 	// Field to send a message to the developer
 	String CONTACT_ME = "ContactMe";
+	
+	// Fields to send feedback
+	String FEEDBACK_CLASS_NAME = "Feedback";
+	String FEEDBACK_ASSOCIATED_WITH = "associated_with";
+	String FEEDBACK_TEXT = "feedback_text";
+	String FEEDBACK_RATING = "feedback_rating";
+	String FEEDBACK_LIST = "feedback_list";
 	
 	// Field to subscribe to push notifications
 	String CHANNEL = "events";
