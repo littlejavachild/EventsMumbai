@@ -24,5 +24,7 @@
 	<string name="message_sent">Message Successfully Sent</string>
 	<string name="message_not_sent">Message Could Not Be Sent. Please Try Again.</string>
 	<string name="not_a_bot">Are You A Bot? Try Again After 15 Seconds</string>
-	
+	<string name="feedback_form">Feedback Form</string>
+	<string name="feedback">Feedback (1000 Characters Only)</string>
+	<string name="submit_feedback">Submit Feedback</string>
 </resources>

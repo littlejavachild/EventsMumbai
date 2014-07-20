@@ -187,4 +187,16 @@ public class EventUtil {
 		}
 	}
 	//------------------------------------------------------------------------------
+	/**
+	 * Used to know if the event is over. This will be sued to enable the feedback
+	 * system
+	 * @param event
+	 * @return
+	 */
+	public static boolean eventBeforeToday(ParseObject event){
+		Date today = new Date();
+		Date eventDate = event.getDate(Fields.EVENT_DATE);
+		return eventDate.before(today);
+	}
+	//------------------------------------------------------------------------------
 }
