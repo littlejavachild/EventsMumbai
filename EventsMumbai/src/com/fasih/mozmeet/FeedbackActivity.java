@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fasih.mozmeet.util.ActionBarUtil;
 import com.fasih.mozmeet.util.EventUtil;
 import com.fasih.mozmeet.util.Fields;
 import com.fasih.mozmeet.views.GoogleIORatingBar;
@@ -29,6 +30,10 @@ public class FeedbackActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_feedback);
+		
+		// Change the ActionBar color
+		ActionBarUtil.setActionBarColor(getActionBar(), getApplicationContext());
+		ActionBarUtil.setActionBarTypeface(this);
 		
 		init();
 		setListeners();
