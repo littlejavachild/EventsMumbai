@@ -12,4 +12,7 @@
     <color name="event_highlight_blue">#33B5E5</color>
     <color name="event_highlight_green">#8FCC85</color>
     
+    <color name="blue">#3D9DDB</color>
+    <color name="grey">#808080</color>
+    
 </resources>
