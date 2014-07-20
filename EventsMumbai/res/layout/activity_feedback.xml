@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="2dp"
+    android:orientation="vertical" >
+    
+    <TextView 
+        android:id="@+id/feedbackFormLabel"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textColor="@android:color/black"
+        android:textSize="21sp"
+        android:typeface="monospace"
+        android:text="@string/feedback_form" />
+   		
+    <com.fasih.mozmeet.views.GoogleIORatingBar
+        android:id="@+id/gioRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1" />
+    
+     <EditText
+       android:id="@+id/feedback"
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:layout_weight="8"
+       android:background="@drawable/shape_rectangle"
+       android:gravity="start"
+       android:hint="@string/feedback"
+       android:inputType="textMultiLine"
+       android:padding="5dp"
+       android:textColor="@android:color/black"
+       android:textSize="16sp"
+       android:maxLength="1000"
+       android:typeface="monospace" />
+  
+    <Button android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:id="@+id/submit"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/student_ambassador_bevel_button"
+        android:textColor="@android:color/white"
+        android:text="@string/submit_feedback" />
+    
+</LinearLayout>

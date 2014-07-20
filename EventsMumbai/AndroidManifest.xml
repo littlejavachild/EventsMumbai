@@ -71,6 +71,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name="ContactMeActivity" android:label="@string/app_name" 
             android:screenOrientation="portrait"/>
+        <activity android:name="FeedbackActivity" android:label="@string/app_name" 
+            android:screenOrientation="portrait"/>
         
     <!-- Goolge Maps API Key -->
 	<meta-data

@@ -20,6 +20,7 @@ public class EventUtil {
 	private static List<ParseObject> mozillaEvents;
 	private static List<ParseObject> userEvents;
 	private static List<ParseObject> eventsOnADate;
+	private static List<ParseObject> feedback;
 	private static ParseObject userEventsInDb = null;
 	private static SaveCallback callback = null;
 	private static EventComparator comparator = null;
@@ -32,9 +33,10 @@ public class EventUtil {
 		mozillaEvents = new ArrayList<ParseObject>();
 		eventsOnADate = new ArrayList<ParseObject>();
 		
-		userEventsInDb = new ParseObject(Fields.SAVED_EVENTS);
+		userEventsInDb = new ParseObject(Fields.SAVED_EVENTS_CLASS_NAME);
 		userEvents = new ArrayList<ParseObject>();
 		userEventsInDb.put(Fields.EVENTS_ATTENDING_LIST,userEvents);
+		feedback = new ArrayList<ParseObject>();
 		
 		comparator = new EventComparator();
 		
@@ -52,7 +54,7 @@ public class EventUtil {
 	 * Used to fetch user events from the database
 	 */
 	public static void getUserEventsFromDatabase(){
-		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(Fields.SAVED_EVENTS);
+		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(Fields.SAVED_EVENTS_CLASS_NAME);
 		query.fromLocalDatastore();
 		query.findInBackground(new FindCallback<ParseObject>(){
 			@Override
@@ -71,6 +73,51 @@ public class EventUtil {
 				}
 			}
 		});
+	}
+	//------------------------------------------------------------------------------
+	/**
+	 * Used to load feedbacks that the user has provided, from the database
+	 */
+	public static void getFeedbackFromDatabase(){
+		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(Fields.FEEDBACK_CLASS_NAME);
+		query.fromLocalDatastore();
+		query.findInBackground(new FindCallback<ParseObject>(){
+			@Override
+			public void done(List<ParseObject> feed, ParseException e) {
+				if(e == null){
+					if(feed.size() > 0){
+						feedback.addAll(feed);
+					}
+				}
+			}
+		});
+	}
+	//------------------------------------------------------------------------------
+	/**
+	 * Used to add a feedback to the database
+	 * @param event The event for which the feedback is being submitted
+	 */
+	public static void saveFeedback(ParseObject feed){
+		// Save to local data store and server
+		feed.pinInBackground(callback);
+		feed.saveEventually();
+		// also add it to the in-memory list of feedback
+		feedback.add(feed);
+	}
+	//------------------------------------------------------------------------------
+	/**
+	 * Used to check if a feedback has been provided for a given event
+	 * @param event
+	 * @return
+	 */
+	public static boolean containsFeedback(ParseObject event){
+		String objectId = event.getObjectId();
+		for(ParseObject feed : feedback){
+			String associatedWith = feed.getString(Fields.FEEDBACK_ASSOCIATED_WITH);
+			if(associatedWith.equalsIgnoreCase(objectId))
+				return true;
+		}
+		return false;
 	}
 	//------------------------------------------------------------------------------
 	/**
@@ -185,6 +232,18 @@ public class EventUtil {
 				eventsOnADate.add(event);
 			}
 		}
+	}
+	//------------------------------------------------------------------------------
+	/**
+	 * Used to know if the event is over. This will be sued to enable the feedback
+	 * system
+	 * @param event
+	 * @return
+	 */
+	public static boolean eventBeforeToday(ParseObject event){
+		Date today = new Date();
+		Date eventDate = event.getDate(Fields.EVENT_DATE);
+		return eventDate.before(today);
 	}
 	//------------------------------------------------------------------------------
 }
