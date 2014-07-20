@@ -22,7 +22,7 @@
          android:background="@drawable/shape_rectangle"
          android:gravity="start"
          android:hint="@string/message"
-         android:inputType="textImeMultiLine"
+         android:inputType="textMultiLine"
          android:padding="5dp"
          android:textColor="@android:color/black"
          android:textSize="16sp"

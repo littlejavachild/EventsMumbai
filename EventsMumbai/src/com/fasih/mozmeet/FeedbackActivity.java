@@ -22,12 +22,21 @@ public class FeedbackActivity extends Activity {
 	private EditText feedback = null;
 	private Button submit = null;
 	private ParseObject event;
+	
+	private static final String FEEDEBACK_KEY = "feedback_key";
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_feedback);
+		
 		init();
 		setListeners();
+		
+		if(savedInstanceState != null){
+			String text = savedInstanceState.getString(FEEDEBACK_KEY);
+			feedback.setText(text);
+		}
 	}
 	//------------------------------------------------------------------------------
 	private void init(){
@@ -83,6 +92,12 @@ public class FeedbackActivity extends Activity {
 				finish();
 			}
 		});
+	}
+	//------------------------------------------------------------------------------
+	@Override
+	public void onSaveInstanceState(Bundle outState){
+		outState.putSerializable(FEEDEBACK_KEY, feedback.getText().toString());
+		super.onSaveInstanceState(outState);
 	}
 	//------------------------------------------------------------------------------
 }
