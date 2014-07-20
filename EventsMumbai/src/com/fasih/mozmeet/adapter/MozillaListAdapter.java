@@ -106,7 +106,7 @@ public class MozillaListAdapter extends BaseAdapter {
 			eventDescription.setText(event.getString(Fields.EVENT_DESCTIPTION));
 		
 		// finally, set the image
-		Picasso.with(convertView.getContext()).load(imageURL).error(R.drawable.event).into(eventImage);
+		Picasso.with(convertView.getContext()).load(imageURL).error(android.R.color.darker_gray).into(eventImage);
 
 		return convertView;
 	}
