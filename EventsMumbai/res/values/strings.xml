@@ -26,6 +26,9 @@
 	<string name="not_a_bot">Are You A Bot? Try Again After 15 Seconds</string>
 	<string name="feedback_form">Feedback Form</string>
 	<string name="feedback">Anything else we should know?\n(1000 Characters Only)</string>
+	<string name="please_select_rating">Please Select A Rating</string>
 	<string name="submit_feedback">Submit Feedback</string>
 	<string name="thank_you_feedback">Thank you for your feedback!</string>
+	<string name="drawer_open">Drawer Open</string>
+	<string name="drawer_close">Drawer Closed</string>
 </resources>

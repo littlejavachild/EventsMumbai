@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -59,6 +61,7 @@ public class HomeActivity extends FragmentActivity implements EventClickListener
 	private MyEventsFragment myEventsFragment = null;
 	
 	private DrawerLayout drawerLayout = null;
+	private ActionBarDrawerToggle drawerToggle = null;
 	//------------------------------------------------------------------------------
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -114,7 +117,15 @@ public class HomeActivity extends FragmentActivity implements EventClickListener
         loadMozillaEvents();
         setPageChangeListener();
         setLeftDrawerListListener();
+        setLeftDrawerToggleListener();
 	}
+	//------------------------------------------------------------------------------
+	@Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        drawerToggle.syncState();
+    }
 	//------------------------------------------------------------------------------
 	@Override
 	public void onResume(){
@@ -128,6 +139,12 @@ public class HomeActivity extends FragmentActivity implements EventClickListener
 		outState.putInt(PAGE_NUM_KEY, currentPageNumber);
 		super.onSaveInstanceState(outState);
 	}
+	//------------------------------------------------------------------------------
+	@Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
+    }
 	//------------------------------------------------------------------------------
 	/**
 	 * Used to load the MozEvent from the server or the local data store
@@ -302,4 +319,34 @@ public class HomeActivity extends FragmentActivity implements EventClickListener
 			}
 		});
 	}
+	//------------------------------------------------------------------------------
+	/**
+	 * Used to show the 3-line icon in the top that shows the presence of 
+	 * navigation drawer
+	 */
+	private void setLeftDrawerToggleListener(){
+		drawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                drawerLayout,         /* DrawerLayout object */
+                R.drawable.ic_drawer,  /* nav drawer icon to replace 'Up' caret */
+                R.string.drawer_open,  /* "open drawer" description */
+                R.string.drawer_close  /* "close drawer" description */
+                );
+		drawerLayout.setDrawerListener(drawerToggle);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+	}
+	//------------------------------------------------------------------------------
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Pass the event to ActionBarDrawerToggle, if it returns
+        // true, then it has handled the app icon touch event
+        if (drawerToggle.onOptionsItemSelected(item)) {
+          return true;
+        }
+        // Handle your other action bar items...
+
+        return super.onOptionsItemSelected(item);
+    }
+	//------------------------------------------------------------------------------
 }

@@ -57,10 +57,6 @@ public class FeedbackActivity extends Activity {
 		feedback.setTypeface(roboto,Typeface.BOLD);
 		submit.setTypeface(roboto, Typeface.BOLD);
 		
-		// Disable the button
-		// The button will only be enabled after the user selects a rating
-		submit.setEnabled(false);
-		
 		// Find the event for which the feedback screen is shown
 		Intent intent = getIntent();
 		int position = intent.getIntExtra(Fields.PARSE_OBJECT, -1);
@@ -70,18 +66,18 @@ public class FeedbackActivity extends Activity {
 	}
 	//------------------------------------------------------------------------------
 	private void setListeners(){
-		// Enable the submit button if the user selects a rating
-		gioRatingBar.setRatingChangeListener(new GoogleIORatingBar.RatingChangeListener() {
-			@Override
-			public void onRatingChanged(int rating) {
-				submit.setEnabled(true);
-			}
-		});
-		
 		submit.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				int rating = gioRatingBar.getRating();
+				// If the user has not selected a rating,
+				// we will prompt them to select a rating
+				if(rating == 0){
+					String text = getResources().getString(R.string.please_select_rating);
+					Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+					toast.show();
+					return;
+				}
 				String feedbackText = feedback.getText().toString();
 				String associatedWith = event.getObjectId();
 				ParseObject feedback = new ParseObject(Fields.FEEDBACK_CLASS_NAME);
