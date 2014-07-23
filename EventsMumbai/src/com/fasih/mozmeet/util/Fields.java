@@ -42,4 +42,5 @@ public interface Fields {
 	String IMAGE_URL = "image_url";
 	String PEOPLE_ATTENDING = "people_attending";
 	String OBJECT_ID = "objectId";
+	String CATEGORY = "category";
 }

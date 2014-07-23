@@ -16,11 +16,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -51,6 +54,7 @@ public class HomeActivity extends FragmentActivity implements EventClickListener
 	private ListView leftDrawer = null;
 	private ViewPager pager = null;
 	private PagerSlidingTabStrip tabs = null;
+	private Spinner spinner = null;
 	
 	private MozillaListAdapter mozillaEventsAdapter = null;
 	private MozillaListAdapter myEventsAdapter = null;
@@ -78,6 +82,7 @@ public class HomeActivity extends FragmentActivity implements EventClickListener
 		pager = (ViewPager) findViewById(R.id.pager);
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		
 		
 		leftDrawer.setAdapter(new NavigationListAdapter());
 		
@@ -338,6 +343,16 @@ public class HomeActivity extends FragmentActivity implements EventClickListener
 	}
 	//------------------------------------------------------------------------------
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    // Inflate the menu items for use in the action bar
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.sort_spinner, menu);
+	    spinner = (Spinner) menu.findItem(R.id.sort).getActionView().findViewById(R.id.spinner);
+	    setSpinnerListener();
+	    return super.onCreateOptionsMenu(menu);
+	}
+	//------------------------------------------------------------------------------
+	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Pass the event to ActionBarDrawerToggle, if it returns
         // true, then it has handled the app icon touch event
@@ -348,5 +363,28 @@ public class HomeActivity extends FragmentActivity implements EventClickListener
 
         return super.onOptionsItemSelected(item);
     }
+	//------------------------------------------------------------------------------
+	/**
+	 * Used to set a listener for the "Category" spinner and to call
+	 * the EventUtil utility method to sort the list of events
+	 */
+	private void setSpinnerListener(){
+		 AdapterView.OnItemSelectedListener spinnerListener = new  AdapterView.OnItemSelectedListener(){
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int pos, long id) {
+			 	String[] categories = getResources().getStringArray(R.array.type);
+			 	String category = categories[pos];
+			 	// If there are any changed after sorting
+			 	if(EventUtil.sort(category))
+			 		mozillaEventsAdapter.notifyDataSetChanged();
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// ignore
+			}
+		 };
+		 spinner.setOnItemSelectedListener(spinnerListener);
+	}
 	//------------------------------------------------------------------------------
 }

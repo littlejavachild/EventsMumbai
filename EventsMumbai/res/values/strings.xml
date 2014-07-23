@@ -31,4 +31,5 @@
 	<string name="thank_you_feedback">Thank you for your feedback!</string>
 	<string name="drawer_open">Drawer Open</string>
 	<string name="drawer_close">Drawer Closed</string>
+	<string name="sort">Sort Events</string>
 </resources>

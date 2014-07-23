@@ -6,7 +6,7 @@ import java.util.Date;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 
-public class EventComparator implements Comparator<ParseObject>{
+public class ChronoComparator implements Comparator<ParseObject>{
 	@Override
 	public int compare(ParseObject event1, ParseObject event2) {
 		Date date1 = new Date();

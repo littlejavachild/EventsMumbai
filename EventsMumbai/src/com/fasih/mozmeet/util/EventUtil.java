@@ -23,7 +23,9 @@ public class EventUtil {
 	private static List<ParseObject> feedback;
 	private static ParseObject userEventsInDb = null;
 	private static SaveCallback callback = null;
-	private static EventComparator comparator = null;
+	private static ChronoComparator comparator = null;
+	private static CategoryComparator catComparator = null;
+	private static String cat = null;
 	/**
 	 * Used to initialize the EventUtil.
 	 * This ensures that we never get NPE
@@ -38,7 +40,9 @@ public class EventUtil {
 		userEventsInDb.put(Fields.EVENTS_ATTENDING_LIST,userEvents);
 		feedback = new ArrayList<ParseObject>();
 		
-		comparator = new EventComparator();
+		comparator = new ChronoComparator();
+		catComparator = new CategoryComparator();
+		
 		
 		callback = new SaveCallback(){
 			@Override
@@ -163,7 +167,8 @@ public class EventUtil {
 		
 		if(mozillaEvents.size() == 0){
 			mozillaEvents.addAll(retrievedMozillaEvents);
-			Collections.sort(mozillaEvents, comparator);
+//			Collections.sort(mozillaEvents, comparator);
+			EventUtil.sort("All");
 			return;
 		}
 		
@@ -244,6 +249,42 @@ public class EventUtil {
 		Date today = new Date();
 		Date eventDate = event.getDate(Fields.EVENT_DATE);
 		return eventDate.before(today);
+	}
+	//------------------------------------------------------------------------------
+	public static boolean sort(String category){
+		boolean changed = false;
+		if(category.equals("All")){
+			cat = category;
+			Collections.sort(mozillaEvents, comparator);
+			changed = true;
+		}else{
+			cat = category;
+			// We find all the events that match the given category
+			List<ParseObject> matchingEvents = new ArrayList<ParseObject>();
+			for(int i = 0; i < mozillaEvents.size(); i++){
+				ParseObject event = mozillaEvents.get(i);
+				Log.v("COMPARING ", event.getString(Fields.CATEGORY));
+				// If it matches the category,
+				if(event.getString(Fields.CATEGORY).trim().equals(category)){
+					// We remove it from the main list
+					// and add it to the matchingEvents list
+					Log.v("REMOVING EVENT ", event.getString(Fields.EVENT_TITLE));
+					mozillaEvents.remove(i);
+					matchingEvents.add(event);
+					changed = true;
+				}
+			}
+			Collections.sort(matchingEvents, comparator);
+			Collections.sort(mozillaEvents, comparator);
+			// Add the events back to the main list,
+			// although at the start
+			mozillaEvents.addAll(0, matchingEvents);
+		}
+		return changed;
+	}
+	//------------------------------------------------------------------------------
+	public static void sortAfterRefreshCompleted(){
+		EventUtil.sort(cat);
 	}
 	//------------------------------------------------------------------------------
 }

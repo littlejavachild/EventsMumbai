@@ -120,6 +120,7 @@ public class MozillaEventsFragment extends Fragment{
 					// NOTHING
 				}
 				mozillaEventsRefreshList.onRefreshComplete();
+				EventUtil.sortAfterRefreshCompleted();
 			}
 		});
 	}
